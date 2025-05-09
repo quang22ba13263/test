@@ -62,10 +62,10 @@
     </div>
     <div id="status">Connecting to server...</div>
 
-    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        // Kết nối tới server
-        const socket = io('https://salty-boiling-ulna.glitch.me');
+        // Kết nối tới server - tự động kết nối đến URL hiện tại
+        const socket = io();
         const statusEl = document.getElementById('status');
         const gameContainer = document.getElementById('gameContainer');
         

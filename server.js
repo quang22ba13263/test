@@ -2,21 +2,29 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
+const fs = require('fs');
 
 // Tạo ứng dụng Express
 const app = express();
 const server = http.createServer(app);
 
-// Cấu hình Socket.IO
+// Cấu hình Socket.IO với CORS rộng hơn
 const io = new Server(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
+// Tạo thư mục public nếu chưa tồn tại
+const publicDir = path.join(__dirname, 'public');
+if (!fs.existsSync(publicDir)){
+    fs.mkdirSync(publicDir);
+}
+
 // Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 // Routes
 app.get('/', (req, res) => {
