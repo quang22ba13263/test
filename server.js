@@ -4,6 +4,16 @@ const { Server } = require('socket.io');
 const path = require('path');
 const fs = require('fs');
 
+// Xác định port từ biến môi trường (Glitch yêu cầu)
+const PORT = process.env.PORT || 3000;
+
+// In môi trường để debug
+console.log('=== DEBUG INFO ===');
+console.log('Node version:', process.version);
+console.log('Current directory:', __dirname);
+console.log('Files in directory:', fs.readdirSync(__dirname));
+console.log('=== END DEBUG ===');
+
 // Tạo ứng dụng Express
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +43,17 @@ app.get('/', (req, res) => {
 
 app.get('/game', (req, res) => {
   res.sendFile(path.join(__dirname, 'game_client.html'));
+});
+
+// Thêm route debug
+app.get('/debug', (req, res) => {
+  const debugInfo = {
+    nodeVersion: process.version,
+    directory: __dirname,
+    files: fs.readdirSync(__dirname),
+    env: process.env.NODE_ENV
+  };
+  res.json(debugInfo);
 });
 
 // Quản lý game state
@@ -106,7 +127,6 @@ io.on('connection', (socket) => {
 });
 
 // Khởi động server
-const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 }); 

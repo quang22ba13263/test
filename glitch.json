@@ -1,6 +1,6 @@
 {
-  "install": "npm install",
-  "start": "node server.js",
+  "install": "bash start.sh",
+  "start": "bash start.sh",
   "watch": {
     "install": {
       "include": [
