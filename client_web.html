@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Client</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultDiv = document.getElementById('result');
+            
+            // Connect to the server
+            const socket = io('https://salty-boiling-ulna.glitch.me');
+            
+            // Listen for the random number event
+            socket.on('random_number', function(data) {
+                resultDiv.innerHTML = `Received random number from server: ${data.number}`;
+                console.log('Received:', data);
+            });
+            
+            // Handle connection errors
+            socket.on('connect_error', function(error) {
+                resultDiv.innerHTML = `Connection error: ${error.message}`;
+                console.error('Connection error:', error);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Socket.IO Test Client</h1>
+    <div id="result">Connecting to server...</div>
+</body>
+</html> 

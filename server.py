@@ -1,26 +1,24 @@
-import socket
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 import random
+import os
 
-# Create a socket object
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+app = Flask(__name__)
+socketio = SocketIO(app)
 
-# Bind the socket to a specific address and port
-server.bind(('0.0.0.0', 5000))
+@app.route('/')
+def index():
+    return "Socket server is running. Use a WebSocket client to connect."
 
-# Listen for incoming connections
-server.listen(5)
-print("Server is listening on port 5000...")
-
-while True:
-    # Accept a client connection
-    client, address = server.accept()
-    print(f"Connected to {address}")
-    
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
     # Generate a random number
     random_number = random.randint(1, 100)
-    
     # Send the random number to the client
-    client.send(str(random_number).encode())
-    
-    # Close the client connection
-    client.close() 
+    socketio.emit('random_number', {'number': random_number})
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    print(f"Starting server on port {port}")
+    socketio.run(app, host='0.0.0.0', port=port) 
