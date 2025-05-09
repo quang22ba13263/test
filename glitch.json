@@ -1,16 +1,11 @@
 {
-  "install": "bash start.sh",
-  "start": "bash start.sh",
+  "install": "npm install",
+  "start": "node index.js",
   "watch": {
-    "install": {
-      "include": [
-        "^package\\.json$"
-      ]
-    },
     "restart": {
       "include": [
         "^\\.env$",
-        "^server\\.js$"
+        "^index\\.js$"
       ]
     },
     "throttle": 1000

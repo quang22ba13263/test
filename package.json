@@ -1,20 +1,13 @@
 {
-  "name": "socket-io-server",
+  "name": "simple-server",
   "version": "1.0.0",
-  "description": "Simple Socket.IO server for real-time applications",
-  "main": "server.js",
+  "description": "Simple HTTP server for testing",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node index.js"
   },
   "engines": {
     "node": "16.x"
   },
-  "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^4.4.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "dependencies": {}
 } 
